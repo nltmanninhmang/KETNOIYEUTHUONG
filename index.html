@@ -10,18 +10,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body{font-family:'Inter',sans-serif;background:#f9f9fc;margin:0}
-        .header{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:5rem 0;text-align:center}
+        .header{background:linear-gradient(135deg,#ec4899,#ec4899);color:#fff;padding:5rem 0;text-align:center}
         .header h1{font-size:3.8rem;font-weight:800;margin:0}
         .header p{font-size:1.3rem;margin-top:1rem}
-        .nav-pills .nav-link{border-radius:50px;color:#6366f1;font-weight:600;padding:.8rem 2rem;margin:0 .3rem}
-        .nav-pills .nav-link.active{background:#6366f1;color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.4)}
+        .nav-pills .nav-link{border-radius:50px;color:#ec4899;font-weight:600;padding:.8rem 2rem;margin:0 .3rem}
+        .nav-pills .nav-link.active{background:#ec4899;color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.4)}
         .item-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.08);transition:all .3s;height:100%}
         .item-card:hover{transform:translateY(-12px);box-shadow:0 25px 50px rgba(99,102,241,.25)}
         .item-title{font-weight:700;font-size:1.25rem;color:#1e293b}
         .item-note{color:#64748b;font-size:1rem;margin:8px 0}
         .badge-class{background:#10b981;color:#fff;padding:8px 16px;border-radius:50px;font-weight:600;font-size:.9rem}
-        .btn-receive{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:50px;padding:16px;font-weight:700;font-size:1.15rem;width:100%;box-shadow:0 8px 25px rgba(139,92,246,.4)}
-        .btn-receive:hover{background:linear-gradient(135deg,#7c3aed,#4f46e5);transform:translateY(-3px)}
+        .btn-receive{background:linear-gradient(135deg,#ec4899,#ec4899);color:#fff;border:none;border-radius:50px;padding:16px;font-weight:700;font-size:1.15rem;width:100%;box-shadow:0 8px 25px rgba(139,92,246,.4)}
+        .btn-receive:hover{background:linear-gradient(135deg,#ec4899,#ec4899);transform:translateY(-3px)}
         .badge-heart{background:linear-gradient(45deg,#f43f5e,#ec4899);color:#fff;padding:12px 20px;border-radius:50px;font-weight:700;font-size:1.1rem}
     </style>
 </head>
@@ -68,7 +68,7 @@
                                 <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Họ và tên" id="giver_nameadge" required></div>
                                 <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Tên món đồ" id="item_name" required></div>
                                 <div class="mb-4"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Ghi chú (VD: Còn mới 95%)" id="subject"></div>
-                                <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow">Tặng ngay – Lớp +1 trái tim</button>
+                                <button type="submit" class="btn btn-lg w-100 rounded-pill shadow" style="background-color: #ec4899; color: white;">Tặng ngay – Lớp +1 trái tim</button>
                             </form>
                         </div>
                     </div>
@@ -80,7 +80,13 @@
             <h3 class="text-center mb-5 fw-bold">Bảng xếp hạng trái tim</h3>
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
-                    <thead class="table-primary"><tr><th>Hạng</th><th>Lớp</th><th class="text-center">Trái tim</th></tr></thead>
+                    <thead style="background: linear-gradient(135deg, #ec4899, #db2777); color: white;">
+                        <tr>
+                            <th class="ps-4">Hạng</th>
+                            <th>Lớp</th>
+                            <th class="text-center pe-4">Trái tim</th>
+                        </tr>
+                    </thead>
                     <tbody id="rankingBody"></tbody>
                 </table>
             </div>
@@ -193,7 +199,7 @@ async function loadRanking() {
         `<tr ${i<3?'class="table-warning"':''}>
             <td><strong>#${i+1}</strong></td>
             <td><strong>${x.class_name}</strong></td>
-            <td class="text-center"><span class="badge-heart">${x.hearts}</span></td>
+            <td class="text-center">${x.hearts}</td>
         </tr>`
     ).join('');
 }
@@ -210,4 +216,5 @@ loadRanking();
 </body>
 
 </html>
+
 
