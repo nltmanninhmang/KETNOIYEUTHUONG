@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kết Nối Yêu Thương</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body{font-family:'Inter',sans-serif;background:#f9f9fc;margin:0}
+        .header{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:5rem 0;text-align:center}
+        .header h1{font-size:3.8rem;font-weight:800;margin:0}
+        .header p{font-size:1.3rem;margin-top:1rem}
+        .nav-pills .nav-link{border-radius:50px;color:#6366f1;font-weight:600;padding:.8rem 2rem;margin:0 .3rem}
+        .nav-pills .nav-link.active{background:#6366f1;color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.4)}
+        .item-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.08);transition:all .3s;height:100%}
+        .item-card:hover{transform:translateY(-12px);box-shadow:0 25px 50px rgba(99,102,241,.25)}
+        .item-title{font-weight:700;font-size:1.25rem;color:#1e293b}
+        .item-note{color:#64748b;font-size:1rem;margin:8px 0}
+        .badge-class{background:#10b981;color:#fff;padding:8px 16px;border-radius:50px;font-weight:600;font-size:.9rem}
+        .btn-receive{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:50px;padding:16px;font-weight:700;font-size:1.15rem;width:100%;box-shadow:0 8px 25px rgba(139,92,246,.4)}
+        .btn-receive:hover{background:linear-gradient(135deg,#7c3aed,#4f46e5);transform:translateY(-3px)}
+        .badge-heart{background:linear-gradient(45deg,#f43f5e,#ec4899);color:#fff;padding:12px 20px;border-radius:50px;font-weight:700;font-size:1.1rem}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <h1>Kết Nối Yêu Thương</h1>
+        <p>Chia sẻ đồ dùng học tập – Lan tỏa yêu thương trong trường</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab">
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#home">Trang chủ</button></li>
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#receive">Đồ đang tặng</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#give">Tôi muốn tặng</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#ranking">Xếp hạng lớp</button></li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Trang chủ -->
+        <div class="tab-pane fade" id="home">
+            <div class="text-center py-5">
+                <h2 class="display-5">Mỗi lần tặng đồ = lớp bạn +1 trái tim</h2>
+                <p class="lead text-muted mt-3">Cùng nhau lan tỏa yêu thương trong trường học!</p>
+            </div>
+        </div>
+
+        <!-- ĐỒ ĐANG TẶNG -->
+        <div class="tab-pane fade show active" id="receive">
+            <h3 class="text-center mb-5 fw-bold">Chọn món đồ bạn cần</h3>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="receiveList">
+                <div class="col-12 text-center"><div class="spinner-border text-primary" style="width:4rem;height:4rem"></div></div>
+            </div>
+        </div>
+
+        <!-- TÔI MUỐN TẶNG -->
+        <div class="tab-pane fade" id="give">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-lg rounded-4">
+                        <div class="card-body p-5">
+                            <h3 class="text-center mb-4">Tặng món đồ mới</h3>
+                            <form id="giveForm">
+                                <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Lớp của bạn (VD: 10A1)" id="giver_class" required></div>
+                                <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Họ và tên" id="giver_nameadge" required></div>
+                                <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Tên món đồ" id="item_name" required></div>
+                                <div class="mb-4"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Ghi chú (VD: Còn mới 95%)" id="subject"></div>
+                                <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow">Tặng ngay – Lớp +1 trái tim</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- XẾP HẠNG -->
+        <div class="tab-pane fade" id="ranking">
+            <h3 class="text-center mb-5 fw-bold">Bảng xếp hạng trái tim</h3>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-primary"><tr><th>Hạng</th><th>Lớp</th><th class="text-center">Trái tim</th></tr></thead>
+                    <tbody id="rankingBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal nhận đồ -->
+<div class="modal fade" id="receiveModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow-lg border-0">
+            <div class="modal-header border-0"><h5 class="modal-title fw-bold">Xác nhận nhận đồ</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body text-center">
+                <div id="modalItemName" class="alert alert-info rounded-3 fs-5 mb-4"></div>
+                <form id="receiveForm">
+                    <input type="hidden" id="itemId">
+                    <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill text-center" placeholder="Họ và tên" id="receiverName" required></div>
+                    <div class="mb-4"><input type="text" class="form-control form-control-lg rounded-pill text-center" placeholder="Lớp của bạn" id="receiverClass" required></div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Xác nhận nhận đồ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// LINK API CỦA BẠN – ĐÃ ĐÚNG
+const API_BASE = 'https://nguyenletranminh.io.vn/apiknyt/';
+
+async function api(url, opt = {}) {
+    try {
+        const r = await fetch(API_BASE + url, opt);
+        if (!r.ok) throw new Error(r.status);
+        return await r.json();
+    } catch (e) {
+        console.error(e);
+        Swal.fire('Lỗi', 'Không kết nối được server!<br>Kiểm tra file .php trên host', 'error');
+        return null;
+    }
+}
+
+// Load đồ đang tặng
+async function loadReceive() {
+    const items = await api('receive.php');
+    const el = document.getElementById('receiveList');
+    if (!items || items.length === 0) {
+        el.innerHTML = '<div class="col-12 text-center py-5"><h4 class="text-muted">Chưa có món đồ nào được tặng</h4></div>';
+        return;
+    }
+    el.innerHTML = items.map(i => `
+        <div class="col">
+            <div class="item-card">
+                <div class="p-4 pb-3">
+                    <h6 class="item-title">${i.item_name}</h6>
+                    ${i.subject ? `<div class="item-note">${i.subject}</div>` : ''}
+                    <div class="d-flex justify-content-start mb-3">
+                        <span class="badge-class">Lớp ${i.giver_class}</span>
+                    </div>
+                    <button class="btn btn-receive" onclick="openReceiveModal(${i.id},'${i.item_name.replace(/'/g,"\\'")}','${i.giver_class}')">
+                        Tôi muốn nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Modal + Nhận đồ
+window.openReceiveModal = (id, name, cls) => {
+    document.getElementById('itemId').value = id;
+    document.getElementById('modalItemName').innerHTML = `<strong>${name}</strong><br><small class="text-success">Lớp tặng: ${cls}</small>`;
+    new bootstrap.Modal(document.getElementById('receiveModal')).show();
+};
+
+document.getElementById('receiveForm').onsubmit = async e => {
+    e.preventDefault();
+    const data = {
+        item_id: document.getElementById('itemId').value,
+        receiver_name: document.getElementById('receiverName').value.trim(),
+        receiver_class: document.getElementById('receiverClass').value.trim()
+    };
+    const res = await api('receive_item.php', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    if (res?.success) {
+        Swal.fire('Thành công!', `Đã đăng ký!<br>Đến lớp <strong>${res.giver_class}</strong> nhận đồ nhé!`, 'success');
+        bootstrap.Modal.getInstance(document.getElementById('receiveModal')).hide();
+        loadReceive();
+    } else {
+        Swal.fire('Oops!', res?.message || 'Đã có người nhận trước!', 'warning');
+    }
+};
+
+// Tặng đồ
+document.getElementById('giveForm').onsubmit = async e => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append('giver_class', document.getElementById('giver_class').value.trim());
+    fd.append('giver_name', document.getElementById('giver_nameadge').value.trim());
+    fd.append('item_name', document.getElementById('item_name').value.trim());
+    fd.append('subject', document.getElementById('subject').value.trim());
+
+    const res = await api('give.php', {method:'POST', body:fd});
+    Swal.fire(res?.success ? 'Thành công!' : 'Lỗi', res?.message || 'Không rõ', res?.success ? 'success' : 'error');
+    if (res?.success) {
+        e.target.reset();
+        loadReceive();
+        loadRanking();
+    }
+};
+
+// Xếp hạng
+async function loadRanking() {
+    const data = await api('ranking.php');
+    if (!data) return;
+    document.getElementById('rankingBody').innerHTML = data.map((x,i) => 
+        `<tr ${i<3?'class="table-warning"':''}>
+            <td><strong>#${i+1}</strong></td>
+            <td><strong>${x.class_name}</strong></td>
+            <td class="text-center"><span class="badge-heart">${x.hearts}</span></td>
+        </tr>`
+    ).join('');
+}
+
+// Tab chuyển
+document.querySelectorAll('[data-bs-toggle="pill"]').forEach(t => t.addEventListener('shown.bs.tab', e => {
+    const id = e.target.getAttribute('data-bs-target');
+    if (id === '#receive') loadReceive();
+    if (id === '#ranking') loadRanking();
+}));
+
+// Khởi động
+loadReceive();
+loadRanking();
+</script>
+</body>
+</html>
