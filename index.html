@@ -10,19 +10,23 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body{font-family:'Inter',sans-serif;background:#f9f9fc;margin:0}
-        .header{background:linear-gradient(135deg,#ec4899,#ec4899);color:#fff;padding:5rem 0;text-align:center}
+        .header{background:linear-gradient(135deg,#ec4899,#d946ef);color:#fff;padding:5rem 0;text-align:center}
         .header h1{font-size:3.8rem;font-weight:800;margin:0}
         .header p{font-size:1.3rem;margin-top:1rem}
         .nav-pills .nav-link{border-radius:50px;color:#ec4899;font-weight:600;padding:.8rem 2rem;margin:0 .3rem}
-        .nav-pills .nav-link.active{background:#ec4899;color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.4)}
-        .item-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.08);transition:all .3s;height:100%}
-        .item-card:hover{transform:translateY(-12px);box-shadow:0 25px 50px rgba(99,102,241,.25)}
-        .item-title{font-weight:700;font-size:1.25rem;color:#1e293b}
+        .nav-pills .nav-link.active{background:#ec4899;color:#fff;box-shadow:0 4px 15px rgba(236,72,153,.4)}
+        .item-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1);transition:all .3s;height:100%}
+        .item-card:hover{transform:translateY(-15px);box-shadow:0 25px 50px rgba(236,72,153,.25)}
+        .item-img{height:220px;width:100%;object-fit:cover;border-bottom:4px solid #ec4899}
+        .no-img{height:220px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;border-bottom:4px solid #ec4899}
+        .no-img i{font-size:4rem;color:#cbd5e1}
+        .item-title{font-weight:700;font-size:1.3rem;color:#1e293b;margin:12px 0 6px}
         .item-note{color:#64748b;font-size:1rem;margin:8px 0}
-        .badge-class{background:#10b981;color:#fff;padding:8px 16px;border-radius:50px;font-weight:600;font-size:.9rem}
-        .btn-receive{background:linear-gradient(135deg,#ec4899,#ec4899);color:#fff;border:none;border-radius:50px;padding:16px;font-weight:700;font-size:1.15rem;width:100%;box-shadow:0 8px 25px rgba(139,92,246,.4)}
-        .btn-receive:hover{background:linear-gradient(135deg,#ec4899,#ec4899);transform:translateY(-3px)}
-        .badge-heart{background:linear-gradient(45deg,#f43f5e,#ec4899);color:#fff;padding:12px 20px;border-radius:50px;font-weight:700;font-size:1.1rem}
+        .badge-class{background:#10b981;color:#fff;padding:8px 16px;border-radius:50px;font-size:.9rem;font-weight:600}
+        .btn-receive{background:#ec4899;color:#fff;border:none;border-radius:50px;padding:16px;font-weight:700;font-size:1.2rem;width:100%;box-shadow:0 8px 25px rgba(236,72,153,.4);transition:all .3s}
+        .btn-receive:hover{background:#db2777;transform:translateY(-3px)}
+        .preview-img{max-height:180px;border-radius:15px;border:3px dashed #ec4899;margin-top:15px;display:block}
+        .badge-heart{background:linear-gradient(45deg,#f43f5e,#ec4899);color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;font-size:1.1rem}
     </style>
 </head>
 <body>
@@ -53,7 +57,9 @@
         <div class="tab-pane fade show active" id="receive">
             <h3 class="text-center mb-5 fw-bold">Chọn món đồ bạn cần</h3>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="receiveList">
-                <div class="col-12 text-center"><div class="spinner-border text-primary" style="width:4rem;height:4rem"></div></div>
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" style="width:4rem;height:4rem"></div>
+                </div>
             </div>
         </div>
 
@@ -63,12 +69,27 @@
                     <div class="card border-0 shadow-lg rounded-4">
                         <div class="card-body p-5">
                             <h3 class="text-center mb-4">Tặng món đồ mới</h3>
-                            <form id="giveForm">
-                                <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Lớp của bạn (VD: 10A1)" id="giver_class" required></div>
-                                <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Họ và tên" id="giver_nameadge" required></div>
-                                <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Tên món đồ" id="item_name" required></div>
-                                <div class="mb-4"><input type="text" class="form-control form-control-lg rounded-pill" placeholder="Ghi chú (VD: Còn mới 95%)" id="subject"></div>
-                                <button type="submit" class="btn btn-lg w-100 rounded-pill shadow" style="background-color: #ec4899; color: white;">Tặng ngay – Lớp +1 trái tim</button>
+                            <form id="giveForm" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control form-control-lg rounded-pill" placeholder="Lớp của bạn (Ví dụ: 5/4)" id="giver_class" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control form-control-lg rounded-pill" placeholder="Họ và tên" id="giver_nameadge" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control form-control-lg rounded-pill" placeholder="Tên món đồ" id="item_name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control form-control-lg rounded-pill" placeholder="Ghi chú (VD: Còn mới 95%)" id="subject">
+                                </div>
+                                <div class="mb-4 text-center">
+                                    <label class="form-label fw-bold" style="color:#ec4899">Chụp ảnh món đồ (khuyến khích)</label>
+                                    <input type="file" class="form-control form-control-lg" id="imageUpload" accept="image/*" onchange="previewImage(event)">
+                                    <img id="imagePreview" class="preview-img mt-3" style="display:none;" alt="Xem trước ảnh">
+                                </div>
+                                <button type="submit" class="btn btn-lg w-100 rounded-pill shadow" style="background:#ec4899;color:white;">
+                                    Tặng ngay – Lớp +1 trái tim
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -94,16 +115,24 @@
     </div>
 </div>
 
+<!-- Modal nhận đồ -->
 <div class="modal fade" id="receiveModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 shadow-lg border-0">
-            <div class="modal-header border-0"><h5 class="modal-title fw-bold">Xác nhận nhận đồ</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold">Xác nhận nhận đồ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <div class="modal-body text-center">
                 <div id="modalItemName" class="alert alert-info rounded-3 fs-5 mb-4"></div>
                 <form id="receiveForm">
                     <input type="hidden" id="itemId">
-                    <div class="mb-3"><input type="text" class="form-control form-control-lg rounded-pill text-center" placeholder="Họ và tên" id="receiverName" required></div>
-                    <div class="mb-4"><input type="text" class="form-control form-control-lg rounded-pill text-center" placeholder="Lớp của bạn" id="receiverClass" required></div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control form-control-lg rounded-pill text-center" placeholder="Họ và tên" id="receiverName" required>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" class="form-control form-control-lg rounded-pill text-center" placeholder="Lớp của bạn" id="receiverClass" required>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Xác nhận nhận đồ</button>
                 </form>
             </div>
@@ -115,6 +144,16 @@
 <script>
 const API_BASE = '//nguyenletranminh.io.vn/apiknyt/';
 
+function previewImage(e) {
+    const preview = document.getElementById('imagePreview');
+    if (e.target.files && e.target.files[0]) {
+        preview.src = URL.createObjectURL(e.target.files[0]);
+        preview.style.display = 'block';
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
 async function api(url, opt = {}) {
     try {
         const r = await fetch(API_BASE + url, opt);
@@ -122,7 +161,7 @@ async function api(url, opt = {}) {
         return await r.json();
     } catch (e) {
         console.error(e);
-        Swal.fire('Lỗi', 'Không kết nối được server!<br>Kiểm tra file .php trên host', 'error');
+        Swal.fire('Lỗi kết nối', 'Không thể liên lạc với server!', 'error');
         return null;
     }
 }
@@ -137,6 +176,10 @@ async function loadReceive() {
     el.innerHTML = items.map(i => `
         <div class="col">
             <div class="item-card">
+                ${i.image ? 
+                    `<img src="${i.image}" class="item-img" alt="${i.item_name}">` : 
+                    `<div class="no-img"><i class="bi bi-gift"></i></div>`
+                }
                 <div class="p-4 pb-3">
                     <h6 class="item-title">${i.item_name}</h6>
                     ${i.subject ? `<div class="item-note">${i.subject}</div>` : ''}
@@ -182,11 +225,14 @@ document.getElementById('giveForm').onsubmit = async e => {
     fd.append('giver_name', document.getElementById('giver_nameadge').value.trim());
     fd.append('item_name', document.getElementById('item_name').value.trim());
     fd.append('subject', document.getElementById('subject').value.trim());
+    const fileInput = document.getElementById('imageUpload');
+    if (fileInput.files[0]) fd.append('image', fileInput.files[0]);
 
     const res = await api('give.php', {method:'POST', body:fd});
     Swal.fire(res?.success ? 'Thành công!' : 'Lỗi', res?.message || 'Không rõ', res?.success ? 'success' : 'error');
     if (res?.success) {
         e.target.reset();
+        document.getElementById('imagePreview').style.display = 'none';
         loadReceive();
         loadRanking();
     }
@@ -197,24 +243,24 @@ async function loadRanking() {
     if (!data) return;
     document.getElementById('rankingBody').innerHTML = data.map((x,i) => 
         `<tr ${i<3?'class="table-warning"':''}>
-            <td><strong>#${i+1}</strong></td>
+            <td class="ps-4"><strong>#${i+1}</strong></td>
             <td><strong>${x.class_name}</strong></td>
             <td class="text-center">${x.hearts}</td>
         </tr>`
     ).join('');
 }
 
-document.querySelectorAll('[data-bs-toggle="pill"]').forEach(t => t.addEventListener('shown.bs.tab', e => {
-    const id = e.target.getAttribute('data-bs-target');
-    if (id === '#receive') loadReceive();
-    if (id === '#ranking') loadRanking();
-}));
+document.querySelectorAll('[data-bs-toggle="pill"]').forEach(t => {
+    t.addEventListener('shown.bs.tab', e => {
+        const id = e.target.getAttribute('data-bs-target');
+        if (id === '#receive') loadReceive();
+        if (id === '#give') loadReceive();
+        if (id === '#ranking') loadRanking();
+    });
+});
 
 loadReceive();
 loadRanking();
 </script>
 </body>
-
 </html>
-
-
